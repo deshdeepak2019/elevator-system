@@ -1,3 +1,12 @@
 from django.contrib import admin
+from .models import Elevator,ElevatorSystem
 
-# Register your models here.
+
+@admin.register(Elevator)
+class ElevatorAdmin(admin.ModelAdmin):
+    model = Elevator
+
+
+@admin.register(ElevatorSystem)
+class ElevatorSystemAdmin(admin.ModelAdmin):
+    model = ElevatorSystem    
