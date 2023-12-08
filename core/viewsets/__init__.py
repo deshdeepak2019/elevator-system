@@ -1,5 +1,7 @@
-from .elevator import ElevatorSystemViewSet
+from .system import ElevatorSystemViewSet
+from .elevators import ElevatorViewSet
 
 __all__=[
-    "ElevatorSystemViewSet"
+    "ElevatorSystemViewSet",
+    "ElevatorViewSet"
 ]

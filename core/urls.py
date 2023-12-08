@@ -29,7 +29,8 @@ urlpatterns = [
     ),
 ]
 
-router.register("elevator", viewsets.ElevatorSystemViewSet, basename="elevator")
+router.register("elevator-system", viewsets.ElevatorSystemViewSet, basename="elevator-system")
+router.register("elevator", viewsets.ElevatorViewSet, basename="elevator")
 
 
 
