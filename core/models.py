@@ -33,3 +33,13 @@ class Elevator(models.Model):
   is_operational = models.BooleanField(default=True)
   is_door_open = models.BooleanField(default=True)
   running_status = models.IntegerField(choices=RunningStatus.choices,default=0)
+
+class ElevatorRequest(models.Model):
+  '''
+  Elevator Request by user.
+  '''
+  elevator = models.ForeignKey(Elevator, on_delete=models.CASCADE)
+  requested_floor = models.PositiveSmallIntegerField()
+  destination_floor = models.PositiveSmallIntegerField()
+  request_time = models.DateTimeField(auto_now_add=True)
+  is_active = models.BooleanField(default=True)
