@@ -17,4 +17,4 @@ class ElevatorViewSet(
 ):
     queryset = Elevator.objects.all()
     serializer_class = ElevatorSerializer
-    http_method_names=["head","get","post","put"]
+    http_method_names=["head","get","post","patch"]
