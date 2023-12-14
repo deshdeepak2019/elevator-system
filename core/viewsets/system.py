@@ -11,8 +11,10 @@ from rest_framework.response import Response
 class ElevatorSystemViewSet(
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
-    mixins.CreateModelMixin,  # Add other mixins if needed
+    mixins.CreateModelMixin,
+    mixins.UpdateModelMixin,
     viewsets.GenericViewSet,
 ):
     queryset = ElevatorSystem.objects.all()
     serializer_class = ElevatorSystemSerializer
+    http_method_names=["head","get","post","put"]
