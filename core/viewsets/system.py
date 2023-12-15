@@ -22,6 +22,16 @@ class ElevatorSystemViewSet(
     serializer_class = ElevatorSystemSerializer
     http_method_names = ["head", "get", "post", "patch"]
 
+    def create(self, request: Request, *args: Any, **kwargs: Any) -> Response:
+        serializer = ElevatorSystemSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        if serializer.validated_data["max_floor"] == 0:
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                data={"details": "Max floor cannot be zero"},
+            )
+        return super().create(request, *args, **kwargs)
+
     @action(
         methods=["get"],
         detail=True,

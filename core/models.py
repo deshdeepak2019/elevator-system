@@ -32,7 +32,15 @@ class ElevatorSystem(CreatedModifiedBaseModel):
     easy implementation for dynamic minimum floor.
     """
 
-    system_name = models.CharField(max_length=32, help_text="Name of elevator system")
+    class Meta:  # pylint: disable=R0903
+        constraints = [
+            models.CheckConstraint(
+                name="max_floor_cannot_be_zero",
+                check=models.Q(max_floor__gte=1),
+            ),
+        ]
+
+    name = models.CharField(max_length=32, help_text="Name of elevator system")
     max_floor = models.IntegerField(help_text="Maximum floor in a elevator system")
     number_of_elevators = models.PositiveIntegerField(
         help_text="Maximum number of elevators in a elevator system"
@@ -70,6 +78,15 @@ class ElevatorRequest(CreatedModifiedBaseModel):
     """
     Elevator Request by user.
     """
+
+    class Meta:  # pylint: disable=R0903
+        constraints = [
+            models.CheckConstraint(
+                name="requested_floor_and_destination_floor_cannot_be_same",
+                check=models.Q(requested_floor__lt=models.F("destination_floor"))
+                | models.Q(requested_floor__gt=models.F("destination_floor")),
+            ),
+        ]
 
     elevator = models.ForeignKey(
         Elevator,
