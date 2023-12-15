@@ -1,0 +1,12 @@
+{
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.unusedImports": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "isort.args": ["--profile", "black", "--skip-glob", "*/migrations/*"],
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter"
+  }
+}

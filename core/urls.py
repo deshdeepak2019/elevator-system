@@ -1,12 +1,9 @@
-from django.views.generic import TemplateView
 from django.urls import include, path
+from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
-
-
-from .routes import routes
 from rest_framework.schemas import get_schema_view
-from core import viewsets
 
+from core import viewsets
 
 router = DefaultRouter()
 
@@ -30,9 +27,10 @@ urlpatterns = [
     ),
 ]
 
-router.register("elevator-system", viewsets.ElevatorSystemViewSet, basename="elevator-system")
+router.register(
+    "elevator-system", viewsets.ElevatorSystemViewSet, basename="elevator-system"
+)
 router.register("elevator", viewsets.ElevatorViewSet, basename="elevator")
-
 
 
 urlpatterns += [

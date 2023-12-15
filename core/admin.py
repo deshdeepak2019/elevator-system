@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Elevator,ElevatorSystem
+
+from .models import Elevator, ElevatorSystem
 
 
 @admin.register(Elevator)
@@ -9,4 +10,4 @@ class ElevatorAdmin(admin.ModelAdmin):
 
 @admin.register(ElevatorSystem)
 class ElevatorSystemAdmin(admin.ModelAdmin):
-    model = ElevatorSystem    
+    model = ElevatorSystem
