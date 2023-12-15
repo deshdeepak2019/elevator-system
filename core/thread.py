@@ -73,10 +73,11 @@ def run_elevator(elevator: Elevator, elevator_system: ElevatorSystem):
 
         # Let people get in, Close the door
         elevator.is_door_open = False
+
         if request_destination > elevator.current_floor:
             # Start going up
             elevator.running_status = 1
-        elif request_destination < current_floor:
+        elif request_destination < elevator.current_floor:
             # Start going down
             elevator.running_status = -1
         elevator.save()
