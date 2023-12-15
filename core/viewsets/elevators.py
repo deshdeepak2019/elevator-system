@@ -7,7 +7,11 @@ from rest_framework.request import Request
 from rest_framework.response import Response
 
 from core.models import Elevator, ElevatorRequest
-from core.serializers import ElevatorRequestSerializer, ElevatorSerializer
+from core.serializers import (
+    ElevatorRequestSerializer,
+    ElevatorSerializer,
+    FetchDestinationSerializer,
+)
 
 
 class ElevatorViewSet(
@@ -56,7 +60,7 @@ class ElevatorViewSet(
         methods=["get"],
         detail=True,
         name="fetch-destination",
-        serializer_class=ElevatorRequestSerializer,
+        serializer_class=FetchDestinationSerializer,
     )
     def fetch_destination(
         self, request: Request, *args: Any, **kwargs: Any
@@ -68,6 +72,8 @@ class ElevatorViewSet(
             data = {
                 "running": False,
                 "details": "Elevator doesn't exist",
+                "current_floor": None,
+                "destination_floor": None,
             }
             return Response(
                 status=status.HTTP_400_BAD_REQUEST,
@@ -82,21 +88,24 @@ class ElevatorViewSet(
             data = {
                 "running": False,
                 "details": "The Elevator is not operational",
+                "current_floor": elevator.current_floor,
+                "destination_floor": None,
             }
         elif elevator_request.count() == 0:
             data = {
                 "running": False,
-                "details": "The Elevator is not running currently, No pending requests",
-            }
-        elif elevator_request[0].requested_floor == elevator.current_floor:
-            data = {
-                "running": True,
-                "details": str(elevator_request[0].destination_floor),
+                "details": "No pending requests",
+                "current_floor": elevator.current_floor,
+                "destination_floor": None,
             }
         else:
             data = {
                 "running": True,
-                "details": str(elevator_request[0].requested_floor),
+                "details": f"Final destination of last request for this elevator is {elevator_request[0].destination_floor}",
+                "current_floor": elevator.current_floor,
+                "destination_floor": elevator_request[0].destination_floor,
             }
+        serializer = FetchDestinationSerializer(data=data)
+        serializer.is_valid(raise_exception=True)
 
-        return Response(status=status.HTTP_200_OK, data=data)
+        return Response(status=status.HTTP_200_OK, data=serializer.data)

@@ -19,3 +19,10 @@ class ElevatorRequestSerializer(serializers.ModelSerializer):  # type: ignore[ty
     class Meta:
         model = ElevatorRequest
         fields = "__all__"
+
+
+class FetchDestinationSerializer(serializers.Serializer):
+    running = serializers.BooleanField()
+    details = serializers.CharField()
+    destination_floor = serializers.IntegerField(required=False, allow_null=True)
+    current_floor = serializers.IntegerField(required=False, allow_null=True)

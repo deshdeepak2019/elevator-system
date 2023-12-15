@@ -28,3 +28,11 @@ class ElevatorSystemAdmin(admin.ModelAdmin):  # type:ignore[type-arg]
 @admin.register(ElevatorRequest)
 class ElevatorSystemAdmin(admin.ModelAdmin):  # type:ignore[type-arg]
     model = ElevatorRequest
+    list_display = (
+        "id",
+        "elevator",
+        "requested_floor",
+        "destination_floor",
+        "request_time",
+        "is_active",
+    )
