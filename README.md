@@ -53,4 +53,7 @@ python manage.py runserver
 2. Using Django Jazzmin for admin Dashboard
  <img width="960" alt="Screenshot 2023-12-16 012734" src="https://github.com/deshdeepak2019/elevator-system/assets/97728256/cb8c0ff1-f1cd-495e-8a5a-230df677a26a">
 
-   
+3. Using DRF for viewsets and REST API.
+4. Using thread to run multiple elevators simultaneously.
+5. Default SQLite DB is used.
+6. Models representation and APIs at [DOCS.md](https://github.com/deshdeepak2019/elevator-system/blob/main/DOCS.md)
