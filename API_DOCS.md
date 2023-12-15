@@ -3,7 +3,7 @@
 # Elevator System
 1. POST  /elevator-system/ - To create new elevator system
    ```
-   Request-
+   Request Body-
    
    {
     "name": "string",
@@ -86,7 +86,7 @@
 1. POST /elevator/ - To create a elevator in a elevator system
 
    ```
-   Request-
+   Request Body-
    {
      "current_floor": 0,
      "is_operational": true,
@@ -169,4 +169,42 @@
      "current_floor": 0
    }
     ```
+
+# Elevator Request
+
+1. POST /elevator-request/ - To create a request for an elevator
+   
+   ```
+   Request Body- 
+   {
+     "requested_floor": 0,
+     "destination_floor": 0,
+     "is_active": true,
+     "elevator": 0
+   }
+
+   Response - status code = 201
+   {
+    "id":0,
+     "requested_floor": 0,
+     "destination_floor": 0,
+     "is_active": true,
+     "elevator": 0
+   }
+   ```
+2. GET /elevator-request/id/ - To retrieve a particular elevator request.
+
+   ```
+   Response - status code = 200
+   {
+     "id": 0,
+     "created_on": "2023-12-15T21:25:29.602Z",
+     "modified_on": "2023-12-15T21:25:29.602Z",
+     "requested_floor": 0,
+     "destination_floor": 0,
+     "request_time": "2023-12-15T21:25:29.602Z",
+     "is_active": true,
+     "elevator": 0
+   }
+   ```
    
