@@ -9,6 +9,7 @@ from core import viewsets
 
 
 router = DefaultRouter()
+
 urlpatterns = [
     path(
         "openapi/",
