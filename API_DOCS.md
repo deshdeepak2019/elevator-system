@@ -1,10 +1,12 @@
 ## API Documentation
 
 # Elevator System
-1. POST  /elevator-system/ - To create new elevator system
+
+1. POST /elevator-system/ - To create new elevator system
+
    ```
    Request Body-
-   
+
    {
     "name": "string",
     "max_floor": 0,
@@ -12,7 +14,7 @@
     }
 
    Response- status code = 201
-   
+
    {
     "id": 0,
     "name": "string",
@@ -20,66 +22,69 @@
     "number_of_elevators": 0
    }
    ```
- 2. GET  /elevator-system/ - To get list of all elevator systems.
-    ```
-    Response- status code = 200
+
+2. GET /elevator-system/ - To get list of all elevator systems.
+   ```
+   Response- status code = 200
+   {
+   "count": 123,
+   "next": "http://api.example.org/accounts/?offset=400&limit=100",
+   "previous": "http://api.example.org/accounts/?offset=200&limit=100",
+   "results": [
+     {
+       "id": 0,
+       "name": "string",
+       "max_floor": 0,
+       "number_of_elevators": 0
+     }
+   ]
+   }
+   ```
+3. GET /elevator-system/id/ - To retrieve a single instance of elevator system
+
+   ```
+   Response- status code = 200
+   {
+    "id": 0,
+    "name": "string",
+    "max_floor": 0,
+    "number_of_elevators": 0
+   }
+   ```
+
+4. PATCH /elevator-system/id/ - To update a single instance of elevator system
+
+   ```
+   Response- status code = 200
     {
-    "count": 123,
-    "next": "http://api.example.org/accounts/?offset=400&limit=100",
-    "previous": "http://api.example.org/accounts/?offset=200&limit=100",
+     "id": 0,
+     "name": "string",
+     "max_floor": 0,
+     "number_of_elevators": 0
+    }
+   ```
+
+5. GET /elevator-system/id/elevators/ - To get list of all elevators in a elevator system
+   ```
+   Response- status code = 200
+   {
+    "count": 1,
+    "next": null,
+    "previous": null,
     "results": [
       {
-        "id": 0,
-        "name": "string",
-        "max_floor": 0,
-        "number_of_elevators": 0
+        "id": 1,
+        "created_on": "2023-12-15T13:42:39.341853Z",
+        "modified_on": "2023-12-15T15:25:58.243807Z",
+        "current_floor": 2,
+        "is_operational": true,
+        "is_door_open": true,
+        "running_status": 0,
+        "elevator_system": 1
       }
     ]
     }
-    ```
-  3. GET /elevator-system/id/ - To retrieve a single instance of elevator system
-     ```
-     Response- status code = 200
-     {
-      "id": 0,
-      "name": "string",
-      "max_floor": 0,
-      "number_of_elevators": 0
-     }
-     ```
-
-   4. PATCH /elevator-system/id/ - To update a single instance of elevator system
-      ```
-      Response- status code = 200
-       {
-        "id": 0,
-        "name": "string",
-        "max_floor": 0,
-        "number_of_elevators": 0
-       }
-      ```
-
-  5. GET /elevator-system/id/elevators/ - To get list of all elevators in a elevator system
-     ```
-     Response- status code = 200
-     {
-      "count": 1,
-      "next": null,
-      "previous": null,
-      "results": [
-        {
-          "id": 1,
-          "created_on": "2023-12-15T13:42:39.341853Z",
-          "modified_on": "2023-12-15T15:25:58.243807Z",
-          "current_floor": 2,
-          "is_operational": true,
-          "is_door_open": true,
-          "running_status": 0,
-          "elevator_system": 1
-        }
-      ]
-      }
-     ```
+   ```
 
 # Elevator
 
@@ -107,6 +112,7 @@
    ```
 
 2. GET /elevator/id/ - To retrieve a particular elevator in a elevator system
+
    ```
    Response - status code = 200
    {
@@ -122,6 +128,7 @@
    ```
 
 3. PATCH /elevator/id/ - To update a particular elevator.
+
    ```
    Response - status code = 200
    {
@@ -156,26 +163,27 @@
          "elevator": 1
        },
        ]
-    ```
+    }
+   ```
 
 5. GET /elevator/id/fetch_destination/ - To fetch destination of an elevator.
 
-    ```
-    Response - status code = 200
-    {
-     "running": true,
-     "details": "string",
-     "destination_floor": 0,
-     "current_floor": 0
+   ```
+   Response - status code = 200
+   {
+    "running": true,
+    "details": "string",
+    "destination_floor": 0,
+    "current_floor": 0
    }
-    ```
+   ```
 
 # Elevator Request
 
 1. POST /elevator-request/ - To create a request for an elevator
-   
+
    ```
-   Request Body- 
+   Request Body-
    {
      "requested_floor": 0,
      "destination_floor": 0,
@@ -192,6 +200,7 @@
      "elevator": 0
    }
    ```
+
 2. GET /elevator-request/id/ - To retrieve a particular elevator request.
 
    ```
@@ -207,4 +216,3 @@
      "elevator": 0
    }
    ```
-   
