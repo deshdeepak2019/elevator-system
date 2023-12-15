@@ -15,6 +15,8 @@ class ElevatorViewSet(
     mixins.UpdateModelMixin,
     viewsets.GenericViewSet,
 ):
+    """API view set for Elevator model."""
+
     queryset = Elevator.objects.all()
     serializer_class = ElevatorSerializer
     http_method_names = ["head", "get", "post", "patch"]

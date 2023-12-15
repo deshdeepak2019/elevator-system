@@ -13,6 +13,8 @@ class ElevatorRequestViewSet(
     mixins.CreateModelMixin,
     viewsets.GenericViewSet,
 ):
+    """API view set for ElevatorRequest model."""
+
     queryset = ElevatorRequest.objects.all()
     serializer_class = ElevatorRequestSerializer
 
