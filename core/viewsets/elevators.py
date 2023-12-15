@@ -56,15 +56,22 @@ class ElevatorViewSet(
         serializer_class=ElevatorRequestSerializer,
     )
     def fetch_destination(self, request, *args, **kwargs):
+        data = {}
         try:
             elevator = Elevator.objects.get(pk=kwargs["pk"])
         except Elevator.DoesNotExist:
-            return Response(status=status.HTTP_400_BAD_REQUEST)
+            data = {
+                "running": False,
+                "details": "Elevator doesn't exist",
+            }
+            return Response(
+                status=status.HTTP_400_BAD_REQUEST,
+                data=data,
+            )
 
         elevator_request = ElevatorRequest.objects.filter(
             elevator=elevator, is_active=True
         ).order_by("request_time")
-        data = {}
 
         if not elevator.is_operational:
             data = {
