@@ -43,6 +43,12 @@ pip install -r requirements.txt
 python manage.py runserver
 ```
 
+4. Open this URL to view all APIs
+
+```
+http://127.0.0.1:8000/
+```
+
 ## NOTE:-
 
 1. I am using SWAGGER UI for visualize and interact with the API's resources
