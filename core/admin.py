@@ -10,7 +10,6 @@ class ElevatorAdmin(admin.ModelAdmin):  # type:ignore[type-arg]
     can_change = False
     list_display = (
         "id",
-        "elevator_system",
         "current_floor",
         "is_operational",
         "is_door_open",

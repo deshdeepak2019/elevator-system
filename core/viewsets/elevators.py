@@ -74,9 +74,9 @@ class ElevatorViewSet(
                 data=data,
             )
 
-        elevator_request = ElevatorRequest.objects.filter(
-            elevator=elevator, is_active=True
-        ).order_by("request_time")
+        elevator_request = ElevatorRequest.objects.filter(elevator=elevator).order_by(
+            "-request_time"
+        )
 
         if not elevator.is_operational:
             data = {
