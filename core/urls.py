@@ -31,6 +31,9 @@ router.register(
     "elevator-system", viewsets.ElevatorSystemViewSet, basename="elevator-system"
 )
 router.register("elevator", viewsets.ElevatorViewSet, basename="elevator")
+router.register(
+    "elevator-request", viewsets.ElevatorRequestViewSet, basename="elevator-request"
+)
 
 
 urlpatterns += [
