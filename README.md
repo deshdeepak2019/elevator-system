@@ -42,3 +42,8 @@ pip install -r requirements.txt
 ```
 python manage.py runserver
 ```
+
+## NOTE:-
+
+1. I am using SWAGGER UI for visualize and interact with the API's resources
+2. Using Django Jazzmin for admin Dashboard
