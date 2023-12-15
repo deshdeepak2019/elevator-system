@@ -1,3 +1,4 @@
+import time
 from threading import Thread
 
 from .models import Elevator, ElevatorRequest, ElevatorSystem
@@ -24,56 +25,62 @@ def run_elevator(elevator: Elevator, elevator_system: ElevatorSystem):
         is_active=True,
     ).order_by("request_time")
 
-    for elev_request in requests_pending:
-        request_start = elev_request.requested_floor
-        request_destination = elev_request.destination_floor
-        curr_elev_location = elevator.current_floor
+    for request in requests_pending:
+        requested_floor = request.requested_floor
+        request_destination = request.destination_floor
+        current_floor = elevator.current_floor
 
         # Invalid Cases
         # 1
         if (
             request_destination < 0
             or request_destination > elevator_system.max_floor
-            or request_start < 0
-            or request_start > elevator_system.max_floor
+            or requested_floor < 0
+            or requested_floor > elevator_system.max_floor
         ):
-            elev_request.is_active = False
-            elev_request.save()
+            request.is_active = False
+            request.save()
             continue
         # 2
-        if request_destination == request_start:
-            elev_request.is_active = False
-            elev_request.save()
+        if request_destination == requested_floor:
+            request.is_active = False
+            request.save()
             continue
 
         # Close the door
         elevator.is_door_open = False
 
-        # Go to starting point
-        if request_start > curr_elev_location:
+        # Go to user starting point
+        # If user is at 3rd floor and elevator current floor is at 1st floor, in this case elevator goes up
+        # and vice versa
+        if requested_floor > current_floor:
             # Start going up
             elevator.running_status = 1
-        elif request_start < curr_elev_location:
+        elif requested_floor < current_floor:
             # Start going down
             elevator.running_status = -1
         elevator.save()
-
-        # Destination reached, stop running
+        time.sleep(4)
+        # user starting point reached, stop running
         # Open the door
-        elevator.current_floor = request_start
+        elevator.current_floor = requested_floor
         elevator.running_status = 0
+        # Let people moving in, Open the door
         elevator.is_door_open = True
         elevator.save()
 
+        time.sleep(4)
+
         # Let people get in, Close the door
         elevator.is_door_open = False
-        if request_destination > curr_elev_location:
+        if request_destination > elevator.current_floor:
             # Start going up
             elevator.running_status = 1
-        elif request_destination < curr_elev_location:
+        elif request_destination < current_floor:
             # Start going down
             elevator.running_status = -1
         elevator.save()
+        time.sleep(3)
 
         # Destination reached, stop running
         # Open the door
@@ -82,8 +89,8 @@ def run_elevator(elevator: Elevator, elevator_system: ElevatorSystem):
         elevator.is_door_open = True
         elevator.save()
 
-        elev_request.is_active = False
-        elev_request.save()
+        request.is_active = False
+        request.save()
 
 
 def check_elevator_system(elevator_system: ElevatorSystem):
