@@ -4,7 +4,7 @@ from .models import Elevator, ElevatorRequest, ElevatorSystem
 
 
 @admin.register(Elevator)
-class ElevatorAdmin(admin.ModelAdmin):
+class ElevatorAdmin(admin.ModelAdmin):  # type:ignore[type-arg]
     model = Elevator
     can_delete = False
     can_change = False
@@ -19,7 +19,7 @@ class ElevatorAdmin(admin.ModelAdmin):
 
 
 @admin.register(ElevatorSystem)
-class ElevatorSystemAdmin(admin.ModelAdmin):
+class ElevatorSystemAdmin(admin.ModelAdmin):  # type:ignore[type-arg]
     model = ElevatorSystem
     can_delete = False
     can_change = False
@@ -27,5 +27,5 @@ class ElevatorSystemAdmin(admin.ModelAdmin):
 
 
 @admin.register(ElevatorRequest)
-class ElevatorSystemAdmin(admin.ModelAdmin):
+class ElevatorSystemAdmin(admin.ModelAdmin):  # type:ignore[type-arg]
     model = ElevatorRequest

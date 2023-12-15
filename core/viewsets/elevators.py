@@ -1,5 +1,6 @@
 from typing import Any
 
+from django.db.models.query import QuerySet
 from rest_framework import mixins, status, viewsets
 from rest_framework.decorators import action
 from rest_framework.request import Request
@@ -13,7 +14,7 @@ class ElevatorViewSet(
     mixins.RetrieveModelMixin,
     mixins.CreateModelMixin,
     mixins.UpdateModelMixin,
-    viewsets.GenericViewSet,
+    viewsets.GenericViewSet,  # type:ignore[type-arg]
 ):
     """API view set for Elevator model."""
 
@@ -21,7 +22,7 @@ class ElevatorViewSet(
     serializer_class = ElevatorSerializer
     http_method_names = ["head", "get", "post", "patch"]
 
-    def get_queryset(self):
+    def get_queryset(self) -> QuerySet[Elevator]:
         return super().get_queryset()
 
     def create(self, request: Request, *args: Any, **kwargs: Any) -> Response:
@@ -35,7 +36,7 @@ class ElevatorViewSet(
         name="requests",
         serializer_class=ElevatorRequestSerializer,
     )
-    def requests(self, request, *args, **kwargs):
+    def requests(self, request: Request, *args: Any, **kwargs: Any):
         try:
             elevator = Elevator.objects.get(pk=kwargs["pk"])
         except Elevator.DoesNotExist:
@@ -57,7 +58,9 @@ class ElevatorViewSet(
         name="fetch-destination",
         serializer_class=ElevatorRequestSerializer,
     )
-    def fetch_destination(self, request, *args, **kwargs):
+    def fetch_destination(
+        self, request: Request, *args: Any, **kwargs: Any
+    ) -> Response:
         data = {}
         try:
             elevator = Elevator.objects.get(pk=kwargs["pk"])
