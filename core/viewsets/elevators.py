@@ -48,3 +48,43 @@ class ElevatorViewSet(
         )
         paginated_response = self.get_paginated_response(serializer.data)
         return Response(paginated_response.data)
+
+    @action(
+        methods=["get"],
+        detail=True,
+        name="fetch-destination",
+        serializer_class=ElevatorRequestSerializer,
+    )
+    def fetch_destination(self, request, *args, **kwargs):
+        try:
+            elevator = Elevator.objects.get(pk=kwargs["pk"])
+        except Elevator.DoesNotExist:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+
+        elevator_request = ElevatorRequest.objects.filter(
+            elevator=elevator, is_active=True
+        ).order_by("request_time")
+        data = {}
+
+        if not elevator.is_operational:
+            data = {
+                "running": False,
+                "details": "The Elevator is not operational",
+            }
+        elif elevator_request.count() == 0:
+            data = {
+                "running": False,
+                "details": "The Elevator is not running currently, No pending requests",
+            }
+        elif elevator_request[0].requested_floor == elevator.current_floor:
+            data = {
+                "running": True,
+                "details": str(elevator_request[0].destination_floor),
+            }
+        else:
+            data = {
+                "running": True,
+                "details": str(elevator_request[0].requested_floor),
+            }
+
+        return Response(status=status.HTTP_200_OK, data=data)
