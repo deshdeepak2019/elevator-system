@@ -36,3 +36,9 @@ cd elevator-system
 ```
 pip install -r requirements.txt
 ```
+
+3. Run the development server
+
+```
+python manage.py runserver
+```
