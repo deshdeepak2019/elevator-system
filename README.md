@@ -49,6 +49,16 @@ python manage.py runserver
 http://127.0.0.1:8000/
 ```
 
+5. Open admin dashboard-
+     a. Create a new superuser
+         ```
+         python3 manage.py createsuperuser
+         ```
+    b. Open this URL to view admin dashboard
+       ```
+        http://127.0.0.1:8000/admin/
+       ```
+
 ## NOTE:-
 
 1. I am using SWAGGER UI for visualize and interact with the API's resources
